@@ -14,7 +14,7 @@ import org.apache.http.util.EntityUtils;
 public class HttpUtil 
 {
 	
-	public String HttpGet(String url) 
+	public static String HttpGet(String url) 
 	{
     	CloseableHttpClient httpClient = HttpClients.createDefault();
     	

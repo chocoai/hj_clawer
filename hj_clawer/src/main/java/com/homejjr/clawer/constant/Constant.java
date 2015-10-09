@@ -1,5 +1,7 @@
 package com.homejjr.clawer.constant;
 
+import java.util.Date;
+
 import org.apache.log4j.PropertyConfigurator;
 import org.logicalcobwebs.proxool.ProxoolException;
 import org.slf4j.LoggerFactory;
@@ -10,6 +12,8 @@ import ch.qos.logback.core.joran.spi.JoranException;
 
 public class Constant 
 {
+	public static Date REPORT_DATE;
+	
 	public static void getInitParameters() 
 	{
 		loadLogBackConfig();
@@ -39,7 +43,6 @@ public class Constant
 	{
 		try 
 		{
-			
 			org.logicalcobwebs.proxool.configuration.PropertyConfigurator.configure("./config/proxool.properties");
 			System.out.println("proxool.properties load success");
 		} 
