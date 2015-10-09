@@ -28,3 +28,5 @@ CREATE TABLE `lianjia_resource`
   `created_ts` DATETIME, -- 创建数据时间戳
   `updated_ts` DATETIME  -- 更新数据时间戳
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+ALTER TABLE `lianjia_resource` ADD UNIQUE(`resource_id`);
