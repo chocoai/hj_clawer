@@ -151,13 +151,41 @@ public class Resource {
 		this.monthlyViewCount = monthlyViewCount;
 	}
 	
-	public String ToSqlString() {
+	public String ToInsertSQL() {
 		StringBuilder buf = new StringBuilder();
 		buf.append("INSERT INTO `lianjia_resource`(`resource_id`,`title`,`tax_fee`,`unique_desc`,`sum_price`,`sum_area`,`unit_price`,`first_pay`,`monthly_provide`,`house_type`,`direction`,`floor`,`neigbour`,`telphone`,`txn_count`,`agent_comment_count`,`view_count`,`agent_name`,`agent_type`,`occupation_year`,`monthly_view_count`,`created_ts`,`updated_ts`) VALUES ");
 		buf.append("('").append(this.resourceId).append("','").append(this.title).append("','").append(this.taxFee).append("','").append(this.unique).append("','");
 		buf.append(this.sumPrice).append("','").append(this.sumArea).append("','").append(this.unitPrice).append("','").append(this.firstPay).append("','").append(this.monthlyProvide).append("','").append(this.houseType).append("','").append(this.direction).append("','").append(this.floor).append("','").append(this.neigbour).append("','").append(this.telphone).append("','");
 		buf.append(this.txnCount).append("','").append(this.agentCommentCount).append("','").append(this.viewCount).append("','");
-		buf.append(this.agentName).append("','").append(this.agentType).append("','").append(this.occupationYear).append("','").append(this.monthlyViewCount).append("',now(),now());");
+		buf.append(this.agentName).append("','").append(this.agentType).append("','").append(this.occupationYear).append("','").append(this.monthlyViewCount).append("',now(),now())");
+		return buf.toString();
+	}
+	
+	public String ToUpdateSQL() {
+		StringBuilder buf = new StringBuilder();
+		buf.append("UPDATE `lianjia_resource` SET ");
+		buf.append("`title`='").append(this.title).append("'");
+		buf.append(",`tax_fee`='").append(this.taxFee).append("'");
+		buf.append(",`unique_desc`='").append(this.unique).append("'");
+		buf.append(",`sum_price`='").append(this.sumPrice).append("'");
+		buf.append(",`sum_area`='").append(this.sumArea).append("'");
+		buf.append(",`unit_price`='").append(this.unitPrice).append("'");
+		buf.append(",`first_pay`='").append(this.firstPay).append("'");
+		buf.append(",`monthly_provide`='").append(this.monthlyProvide).append("'");
+		buf.append(",`house_type`='").append(this.houseType).append("'");
+		buf.append(",`direction`='").append(this.direction).append("'");
+		buf.append(",`floor`='").append(this.floor).append("'");
+		buf.append(",`neigbour`='").append(this.neigbour).append("'");
+		buf.append(",`telphone`='").append(this.telphone).append("'");
+		buf.append(",`txn_count`='").append(this.txnCount).append("'");
+		buf.append(",`agent_comment_count`='").append(this.agentCommentCount).append("'");
+		buf.append(",`view_count`='").append(this.viewCount).append("'");
+		buf.append(",`agent_name`='").append(this.agentName).append("'");
+		buf.append(",`agent_type`='").append(this.agentType).append("'");
+		buf.append(",`occupation_year`='").append(this.occupationYear).append("'");
+		buf.append(",`monthly_view_count`='").append(this.monthlyViewCount).append("'");
+		buf.append(",`updated_ts`=now() ");
+		buf.append(" WHERE `resource_id`='").append(this.resourceId).append("'");
 		return buf.toString();
 	}
 }
