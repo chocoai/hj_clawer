@@ -103,26 +103,22 @@ public class ClawerService
 		}
 	}
 	
-	public static void generateSQL() {
-		List<Resource> resources = new ArrayList<Resource>();
-		List<String> sqls = new ArrayList<String>();
-		try {
-			List<String> jsonList = FileUtils.readLines(new File("./output/20151008_data.txt"), "utf-8");
-			
-			for(String json : jsonList) {
-				Resource resource = JSONUtil.JsonStr2Resource(json);
-				resources.add(resource);
+	public static void mergeData() 
+	{
+		try
+		{
+			File jsonFilePath = new File(Constant.RESOURCE_JSON_FILE_PATH);
+			List<String> lines = FileUtils.readLines(jsonFilePath, "utf-8");
+			List<Resource> resourceList = new ArrayList<Resource>();
+			for(String line : lines) {
+				resourceList.add(JSONUtil.JsonStr2Resource(line));
 			}
-			
-			
-			for(Resource resource : resources) {
-				sqls.add(resource.ToSqlString());
-			}
-			
-			FileUtils.writeLines(new File("./output/20151008_insert.sql"), sqls, true);
+			DBService.mergeData(resourceList);
 		}
-		catch(Exception e) {
-			e.printStackTrace();
+		catch(Exception e)
+		{
+			LOGGER.error("error",e);
 		}
+		
 	}
 }

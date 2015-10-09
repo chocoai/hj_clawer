@@ -2,6 +2,7 @@ package com.homejjr.clawer;
 
 import com.homejjr.clawer.constant.Constant;
 import com.homejjr.clawer.service.ClawerService;
+import com.homejjr.clawer.service.DBService;
 import com.homejjr.clawer.util.HtmlUtil;
 
 public class App 
@@ -25,9 +26,10 @@ public class App
     	//ClawerService.generateResourceLinks2File(Constant.SLEEP_TIME);
     	
     	//获取每个房源详细信息转成Json格式存入文件
-    	ClawerService.generateResourceJson2File(Constant.SLEEP_TIME);
+    	//ClawerService.generateResourceJson2File(Constant.SLEEP_TIME);
     	
-    	
+    	//插入或者更新最新房源信息
+    	ClawerService.mergeData();
     	
     }
 }
