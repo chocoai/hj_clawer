@@ -2,7 +2,9 @@ package com.homejjr.soufang;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.commons.io.FileUtils;
 import org.jsoup.Jsoup;
@@ -85,10 +87,21 @@ public class App
 	}
 	
 	public static void main(String[] args) throws Exception {
-		List<String> agentLinks = getAgentLinks();
-		
-		for(String agentLink : agentLinks) {
-			outputAgent(agentLink);
+		List<String> agentLinks = new ArrayList<String>();
+		List<String> lines = FileUtils.readLines(new File("./output/soufang/soufang_agent.csv"), "utf-8");
+		Set<String> phone = new HashSet<String>();
+		int lineNo = 1;
+		for(String line : lines) {
+			String[] array = line.split(",");
+			String no = array[1];
+			System.out.println("line"+lineNo + ":" + no);
+			lineNo++;
+			
+			if(phone.add(no)) {
+				agentLinks.add(line);
+			}
+			
 		}
+		FileUtils.writeLines(new File("./output/soufang/sofang_agent_new.csv"), agentLinks, true);
 	}
 }
