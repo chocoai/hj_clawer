@@ -204,7 +204,7 @@ public class HtmlUtil
 		try {
 			monthlyViewCount = doc.select("DIV[class=p-del right]").get(0).select("SPAN").get(4).text();
 		} catch(Exception e){}
-		System.out.println("从业年限monthlyViewCount => " + monthlyViewCount);
+		System.out.println("月总带看monthlyViewCount => " + monthlyViewCount);
 		res.setMonthlyViewCount(monthlyViewCount);
 		return res;
 	}
