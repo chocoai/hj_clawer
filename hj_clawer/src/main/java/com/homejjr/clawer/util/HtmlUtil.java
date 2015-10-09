@@ -14,11 +14,32 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.homejjr.clawer.constant.Constant;
 import com.homejjr.clawer.domain.Resource;
 
 public class HtmlUtil 
 {
 	public static final String ADDRESS = "http://sh.lianjia.com";
+	
+	public static String getPageCount(String indexPageURL) {
+		InputStream in = null;
+		try {
+			in = new URL(indexPageURL).openStream();
+			Document doc = Jsoup.parse(in,"utf-8",indexPageURL);
+			Element element = doc.select("DIV[class=page-box house-lst-page-box]").get(0);
+			String jsonPageInfo = element.attr("page-data");
+			System.out.println(jsonPageInfo);
+			JSONObject jsonObj = JSON.parseObject(jsonPageInfo);
+			return jsonObj.getString("totalPage");
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			IOUtils.closeQuietly(in);
+		}
+		return "";
+	}
 	
 	public static List<String> getResourceLinks(String resourceListURL) {
 		Set<String> set = new HashSet<String>();
@@ -33,7 +54,7 @@ public class HtmlUtil
 			Elements links = contents.select("A[target=_blank]");
 			for(Element link : links) 
 			{
-				String strLink = ADDRESS + link.attr("href");
+				String strLink = Constant.INDEX_PAGE_URL + link.attr("href");
 				if(set.add(strLink)) {
 					returnList.add(strLink);
 					System.out.println(strLink);

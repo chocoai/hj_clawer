@@ -24,6 +24,12 @@ public class PropertyUtil
 		}
 	}
 	
+	public static int getInt(String resource, String key)
+	{
+		PropertiesConfiguration config = getConfiguration(resource);
+		return config.getInt(key);
+	}
+	
 	public static long getLong(String resource, String key) 
 	{
 		PropertiesConfiguration config = getConfiguration(resource);
