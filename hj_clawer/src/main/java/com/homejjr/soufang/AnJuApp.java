@@ -9,6 +9,7 @@ import java.util.Set;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.http.HttpHost;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -16,7 +17,7 @@ import org.jsoup.select.Elements;
 
 import com.homejjr.clawer.util.HttpUtil;
 
-public class App 
+public class AnJuApp 
 {
 	
 	public static void generatePageLinks() throws Exception {
@@ -68,40 +69,17 @@ public class App
 			
 			StringBuilder buf = new StringBuilder();
 			
-			for(int i = 1; i <= 33; i++) {
+			for(int i = 1; i <= 11; i++) {
 				
-				Thread.sleep(6000);		
-			
-				//鞍山
-				//String url = "http://esf.sh.fang.com/agenthome-a026-b05255/-i3" + i + "-j310/";
+				Thread.sleep(6000);	
+				
 				
 				//东外滩
-				//String url = "http://esf.sh.fang.com/agenthome-a026-b01648/-i3" + i + "-j310/";
-				
-				//黄兴公园
-				//String url = "http://esf.sh.fang.com/agenthome-a026-b01650/-i3" + i + "-j310/";
-				
-				//控江路
-				//String url = "http://esf.sh.fang.com/agenthome-a026-b010350/-i3" + i + "-j310/";				
-				
-				//五角场
-				//String url = "http://esf.sh.fang.com/agenthome-a026-b01647/-i3" + i + "-j310/";
-				
-				//新江湾
-				//String url = "http://esf.sh.fang.com/agenthome-a026-b01651/-i3" + i + "-j310/";
-				
-				//杨浦大桥
-				//String url = "http://esf.sh.fang.com/agenthome-a026-b012971/-i3" + i + "-j310/";
-				
-				//中原
-				//String url = "http://esf.sh.fang.com/agenthome-a026-b01652/-i3" + i + "-j310/";
-				
-				//周家嘴路
-				String url = "http://esf.sh.fang.com/agenthome-a026-b01649/-i3" + i + "-j310/";
+				String url = "http://shanghai.anjuke.com/tycoon/anshan/p" + i + "-st1";
 			
 			    System.out.println("page NO="+i);
 			    
-				String html = HttpUtil.HttpGet(url);
+				String html = HttpUtil.HttpGet(url,new HttpHost("122.226.142.52",3128));
 				//System.out.println(html);
 				Document doc = Jsoup.parse(html);
 				//Document doc = Jsoup.parse(new File("./input/html.txt"), "utf-8");
@@ -109,43 +87,32 @@ public class App
 				
 			
 			//agentName = doc.select("DIV[class=rzname floatl]").get(0).text();
-			List<Element> houseList = doc.select("DIV[class=house]");
+			List<Element> AgentList = doc.select("a[class=name]");
 			
-			System.out.println("houseList.size()="+houseList.size());
+			System.out.println("houseList.size()="+AgentList.size());
 			 
-			for(Element el:houseList){			
+			for(int j=0;j<AgentList.size();j++){			
 				
 				
 				String agentName = "";				
-				agentName=el.select("p[class=housetitle]").get(0).text();
-				agentName = StringUtils.substringBefore(agentName, "(");
+				agentName=doc.select("a[class=name]").get(j).text();				
 				System.out.print(agentName+",");
 				buf.append(agentName).append(",");
 				
 				
-				String mobile = "";		
-				try{
-				mobile = el.select("p[class=black]").get(1).select("strong").get(0).text();
-				}catch(Exception e){
-					mobile = el.select("p[class=black]").get(0).select("strong").get(0).text();
-					System.out.print(mobile+",");
-					buf.append(mobile).append(",");
-					System.out.println("");
-					buf.append("").append("\n");
-					continue;
-				}
+				String mobile = "";						
+				mobile = doc.select("span[class=mobile_number]").get(j).text();				
 				System.out.print(mobile+",");
 				buf.append(mobile).append(",");
 				
-				String company = "";
-				
-				company = el.select("p[class=black]").get(0).select("span").get(0).text();				
+				String company = "";				
+				company = doc.select("a[class=job]").get(j).text();				
 				System.out.println(company);
 				buf.append(company).append("\n");
 			}
 			}
 			
-			FileUtils.write(new File("./output/soufang/soufang_agent_zhoujiazuilu_10_10.csv"), new String(buf.toString().getBytes("utf-8")), true);
+			FileUtils.write(new File("./output/anjuke/anjuke_agent_anshan_10_12.csv"), new String(buf.toString().getBytes("utf-8")), true);
 		} catch(Exception e) {
 			throw e;
 		}

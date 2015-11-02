@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="hj_clawer"  basedir="." default="deploy">
+		
+	<target name="deploy">
+		
+		<delete dir="./Release/v0.1"/>
+		<mkdir dir="./Release/v0.1"/>
+		<copy todir="./Release/v0.1/" overwrite="true">
+			<fileset dir="./">
+				<include name="config/*"/>
+				<include name="run.*"/>
+			</fileset>
+		</copy>
+		<copy tofile="./Release/v0.1/hj_clawer-0.0.1-SNAPSHOT-jar-with-dependencies.jar" file="./target/hj_clawer-0.0.1-SNAPSHOT-jar-with-dependencies.jar" overwrite="true"/>
+	</target>
+		
+</project>

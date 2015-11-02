@@ -8,7 +8,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.homejjr.clawer.constant.Constant;
+import com.homejjr.clawer.lianjia.constant.Constant;
 
 public class TestDBUtil {
 
@@ -31,8 +31,8 @@ public class TestDBUtil {
 
 	@Test
 	public void test() {
-		Connection con = DBUtil.getConnection();
-		System.out.println(con);
+//		Connection con = DBUtil.getConnection();
+//		System.out.println(con);
 	}
 
 }

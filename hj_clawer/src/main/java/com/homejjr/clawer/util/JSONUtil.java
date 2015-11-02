@@ -1,7 +1,7 @@
 package com.homejjr.clawer.util;
 
 import com.alibaba.fastjson.JSON;
-import com.homejjr.clawer.domain.Resource;
+import com.homejjr.clawer.lianjia.domain.Resource;
 
 public class JSONUtil {
 	

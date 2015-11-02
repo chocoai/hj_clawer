@@ -30,3 +30,7 @@ CREATE TABLE `lianjia_resource`
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 ALTER TABLE `lianjia_resource` ADD UNIQUE(`resource_id`);
+
+ALTER TABLE `wechat_post` ADD COLUMN `f_id` VARCHAR(30) DEFAULT '' AFTER `id`;
+
+

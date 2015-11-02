@@ -1,9 +1,12 @@
 package com.homejjr.clawer.util;
 
+import java.io.FileInputStream;
 import java.net.URLDecoder;
+import java.util.List;
 
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
+import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,6 +39,12 @@ public class PropertyUtil
 		return config.getLong(key);
 	}
 	
+	public static boolean getBoolean(String resource, String key)
+	{
+		PropertiesConfiguration config = getConfiguration(resource);
+		return config.getBoolean(key);
+	}
+	
 	public static String getProperty(String resource, String key) 
 	{
 		PropertiesConfiguration config = getConfiguration(resource);
@@ -58,6 +67,47 @@ public class PropertyUtil
 		return config.getString(key,defaultValue);
 	}
 	
+	public static List<?> getList(String resource, String key)
+	{
+		PropertiesConfiguration config = getConfiguration(resource);
+		return config.getList(key);
+	}
+	
+	public static String[] getStrArray(String resource, String key) 
+	{
+		FileInputStream fis = null;
+		String value = "";
+		try
+		{
+			fis = new FileInputStream(URLDecoder.decode("./config/"+resource,"utf-8"));
+			List<String> lines = IOUtils.readLines(fis, "UTF-8");
+			for(String line : lines) 
+			{
+				if(line == null || "".equals(line.trim()) || line.startsWith("#"))
+				{
+					continue;
+				}
+				String[] kv = line.split("=");
+				String k = kv[0].trim();
+				String v = kv[1].trim();
+				if(key.equals(k)) {
+					value = v;
+					break;
+				}
+			}
+			return value.split(",");
+		}
+		catch(Exception e)
+		{
+			LOGGER.error("error",e);
+		}
+		finally
+		{
+			IOUtils.closeQuietly(fis);
+		}
+		return new String[]{};
+	}
+	
 	private static PropertiesConfiguration getConfiguration(String resource) 
 	{
 		try 
@@ -76,6 +126,9 @@ public class PropertyUtil
 		return null;
 	}
 
-
+	public static void main(String[] args) {
+		String[] array = PropertyUtil.getStrArray("config.ini", "NICK_NAME_LIST");
+		System.out.println(array[20]);
+	}
 	
 }

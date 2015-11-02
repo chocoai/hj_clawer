@@ -1,12 +1,15 @@
 package com.homejjr.clawer.util;
 
+import java.util.List;
+import java.util.Random;
+
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.homejjr.clawer.constant.Constant;
+import com.homejjr.clawer.lianjia.constant.Constant;
 
 public class TestPropertyUtil {
 
@@ -29,8 +32,13 @@ public class TestPropertyUtil {
 
 	@Test
 	public void test() {
-		String value = PropertyUtil.getProperty("config.ini", "hello");
-		System.out.println(value);
+		
+//		String[] array = PropertyUtil.getStrArray("config.ini", "NICK_NAME_LIST");
+//		for(int i = 1; i <= 100; i++)
+//		{
+//			String nickName = RandomUtil.getNextNickName(array);
+//			System.out.println(nickName);
+//		}
 	}
 
 }
